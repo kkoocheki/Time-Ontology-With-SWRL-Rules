@@ -1,0 +1,91 @@
+@prefix time: <https://www.w3.org/TR/owl-time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[IntervalBefore:
+  (?tInterval2 time:hasBeginning ?t2fi)
+  (?tInterval1 time:hasEnd ?t1li)
+  (?t1li time:before ?t2fi)
+  ->
+  (?tInterval1 time:before ?tInterval2)
+]
+
+[IntervalStarts:
+  (?t1li time:before ?t2li)
+  (?tInterval2 time:hasBeginning ?t1fi)
+  (?tInterval1 time:hasBeginning ?t1fi)
+  (?tInterval2 time:hasEnd ?t2li)
+  (?tInterval1 time:hasEnd ?t1li)
+  ->
+  (?tInterval1 time:intervalStarts ?tInterval2)
+]
+
+[IntervalEquals:
+  (?tInterval2 time:hasBeginning ?t1fi)
+  (?tInterval1 time:hasBeginning ?t1fi)
+  (?tInterval2 time:hasEnd ?t1li)
+  (?tInterval1 time:hasEnd ?t1li)
+  ->
+  (?tInterval2 time:intervalEquals ?tInterval1)
+]
+
+[IntervalMeets:
+  (?tInterval2 time:hasBeginning ?t2fi)
+  (?tInterval1 time:hasEnd ?t2fi)
+  ->
+  (?tInterval1 time:intervalMeets ?tInterval2)
+]
+
+[InstantBefore:
+  (?ti1 time:inXSDDateTimeStamp ?dt1)
+  (?ti2 time:inXSDDateTimeStamp ?dt2)
+  greaterThan(?dt2, ?dt1)
+  ->
+  (?ti1 time:before ?ti2)
+]
+
+[InstantBeforeDateTime:
+  (?ti1 time:inXSDDateTime ?dt1)
+  (?ti2 time:inXSDDateTime ?dt2)
+  greaterThan(?dt2, ?dt1)
+  ->
+  (?ti1 time:before ?ti2)
+]
+
+[InstantBeforeStampToDateTime:
+  (?ti1 time:inXSDDateTimeStamp ?dt1)
+  (?ti2 time:inXSDDateTime ?dt2)
+  greaterThan(?dt2, ?dt1)
+  ->
+  (?ti1 time:before ?ti2)
+]
+
+[InstantBeforeDateTimeToStamp:
+  (?ti1 time:inXSDDateTime ?dt1)
+  (?ti2 time:inXSDDateTimeStamp ?dt2)
+  greaterThan(?dt2, ?dt1)
+  ->
+  (?ti1 time:before ?ti2)
+]
+
+[IntervalOverlaps:
+  (?t2fi time:before ?t1li)
+  (?t1fi time:before ?t2fi)
+  (?tInterval2 time:hasBeginning ?t2fi)
+  (?t1li time:before ?t2li)
+  (?tInterval1 time:hasBeginning ?t1fi)
+  (?tInterval2 time:hasEnd ?t2li)
+  (?tInterval1 time:hasEnd ?t1li)
+  ->
+  (?tInterval1 time:intervalOverlaps ?tInterval2)
+]
+
+[IntervalContains:
+  (?tInterval1 time:hasBeginning ?t1fi)
+  (?tInterval2 time:hasBeginning ?t2fi)
+  (?tInterval2 time:hasEnd ?t2li)
+  (?tInterval1 time:hasEnd ?t1li)
+  (?t1fi time:before ?t2fi)
+  (?t2li time:before ?t1li)
+  ->
+  (?tInterval1 time:intervalContains ?tInterval2)
+]
