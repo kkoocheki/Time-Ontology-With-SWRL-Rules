@@ -1,0 +1,65 @@
+PREFIX ex: <http://example.org/time/>
+PREFIX time: <https://www.w3.org/TR/owl-time#>
+
+# Example 1: before
+# Expected bindings: ex:beforeInterval1 time:before ex:beforeInterval2
+SELECT ?interval1 ?interval2 WHERE {
+  ?interval1 time:before ?interval2 .
+  FILTER(?interval1 = ex:beforeInterval1 && ?interval2 = ex:beforeInterval2)
+}
+
+# Example 2: intervalStarts
+# Expected bindings: ex:startsShort time:intervalStarts ex:startsLong
+SELECT ?starter ?longer WHERE {
+  ?starter time:intervalStarts ?longer .
+  FILTER(?starter = ex:startsShort && ?longer = ex:startsLong)
+}
+
+# Example 3: intervalEquals
+# Expected bindings: ex:equalsIntervalA time:intervalEquals ex:equalsIntervalB
+SELECT ?left ?right WHERE {
+  ?left time:intervalEquals ?right .
+  FILTER(?left = ex:equalsIntervalA && ?right = ex:equalsIntervalB)
+}
+
+# Example 4: intervalMeets
+# Expected bindings: ex:meetsIntervalFirst time:intervalMeets ex:meetsIntervalSecond
+SELECT ?first ?second WHERE {
+  ?first time:intervalMeets ?second .
+  FILTER(?first = ex:meetsIntervalFirst && ?second = ex:meetsIntervalSecond)
+}
+
+# Example 5: instant before (dateTimeStamp)
+# Expected bindings: ex:instantEarly time:before ex:instantLate
+SELECT ?early ?late WHERE {
+  ?early time:before ?late .
+  FILTER(?early = ex:instantEarly && ?late = ex:instantLate)
+}
+
+# Example 6: intervalOverlaps
+# Expected bindings: ex:overlapInterval1 time:intervalOverlaps ex:overlapInterval2
+SELECT ?interval1 ?interval2 WHERE {
+  ?interval1 time:intervalOverlaps ?interval2 .
+  FILTER(?interval1 = ex:overlapInterval1 && ?interval2 = ex:overlapInterval2)
+}
+
+# Example 7: intervalContains (during)
+# Expected bindings: ex:containsOuter time:intervalContains ex:containsInner
+SELECT ?outer ?inner WHERE {
+  ?outer time:intervalContains ?inner .
+  FILTER(?outer = ex:containsOuter && ?inner = ex:containsInner)
+}
+
+# Example 8: instant before (dateTime)
+# Expected bindings: ex:dtInstantEarly time:before ex:dtInstantLate
+SELECT ?early ?late WHERE {
+  ?early time:before ?late .
+  FILTER(?early = ex:dtInstantEarly && ?late = ex:dtInstantLate)
+}
+
+# Example 9: mixed datatype interval ordering
+# Expected bindings: ex:mixedIntervalStamp time:before ex:mixedIntervalDateTime
+SELECT ?stamp ?datetime WHERE {
+  ?stamp time:before ?datetime .
+  FILTER(?stamp = ex:mixedIntervalStamp && ?datetime = ex:mixedIntervalDateTime)
+}
