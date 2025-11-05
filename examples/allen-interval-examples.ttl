@@ -1,0 +1,113 @@
+@prefix ex: <http://example.org/time/> .
+@prefix time: <https://www.w3.org/TR/owl-time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Example 1: before
+ex:beforeInterval1 a time:ProperInterval ;
+  time:hasBeginning ex:beforeInterval1Start ;
+  time:hasEnd ex:beforeInterval1End .
+ex:beforeInterval2 a time:ProperInterval ;
+  time:hasBeginning ex:beforeInterval2Start ;
+  time:hasEnd ex:beforeInterval2End .
+ex:beforeInterval1Start a time:Instant ;
+  time:inXSDDateTimeStamp "2022-12-31T23:00:00Z"^^xsd:dateTimeStamp .
+ex:beforeInterval1End a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-01T00:00:00Z"^^xsd:dateTimeStamp .
+ex:beforeInterval2Start a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-01T01:00:00Z"^^xsd:dateTimeStamp .
+ex:beforeInterval2End a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-01T03:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 2: starts
+ex:startsShort a time:ProperInterval ;
+  time:hasBeginning ex:startsSharedStart ;
+  time:hasEnd ex:startsShortEnd .
+ex:startsLong a time:ProperInterval ;
+  time:hasBeginning ex:startsSharedStart ;
+  time:hasEnd ex:startsLongEnd .
+ex:startsSharedStart a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-02T00:00:00Z"^^xsd:dateTimeStamp .
+ex:startsShortEnd a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-02T02:00:00Z"^^xsd:dateTimeStamp .
+ex:startsLongEnd a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-02T04:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 3: equals
+ex:equalsIntervalA a time:ProperInterval ;
+  time:hasBeginning ex:equalsStart ;
+  time:hasEnd ex:equalsEnd .
+ex:equalsIntervalB a time:ProperInterval ;
+  time:hasBeginning ex:equalsStart ;
+  time:hasEnd ex:equalsEnd .
+ex:equalsStart a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-03T00:00:00Z"^^xsd:dateTimeStamp .
+ex:equalsEnd a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-03T03:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 4: meets
+ex:meetsIntervalFirst a time:ProperInterval ;
+  time:hasEnd ex:meetingInstant .
+ex:meetsIntervalSecond a time:ProperInterval ;
+  time:hasBeginning ex:meetingInstant .
+ex:meetingInstant a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-04T03:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 5: instant before
+ex:instantEarly a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-05T00:00:00Z"^^xsd:dateTimeStamp .
+ex:instantLate a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-05T06:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 6: overlaps
+ex:overlapInterval1 a time:ProperInterval ;
+  time:hasBeginning ex:overlapStart1 ;
+  time:hasEnd ex:overlapEnd1 .
+ex:overlapInterval2 a time:ProperInterval ;
+  time:hasBeginning ex:overlapStart2 ;
+  time:hasEnd ex:overlapEnd2 .
+ex:overlapStart1 a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-06T00:00:00Z"^^xsd:dateTimeStamp .
+ex:overlapStart2 a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-06T01:00:00Z"^^xsd:dateTimeStamp .
+ex:overlapEnd1 a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-06T03:00:00Z"^^xsd:dateTimeStamp .
+ex:overlapEnd2 a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-06T05:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 7: contains (during)
+ex:containsOuter a time:ProperInterval ;
+  time:hasBeginning ex:containsOuterStart ;
+  time:hasEnd ex:containsOuterEnd .
+ex:containsInner a time:ProperInterval ;
+  time:hasBeginning ex:containsInnerStart ;
+  time:hasEnd ex:containsInnerEnd .
+ex:containsOuterStart a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-07T00:00:00Z"^^xsd:dateTimeStamp .
+ex:containsInnerStart a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-07T01:00:00Z"^^xsd:dateTimeStamp .
+ex:containsInnerEnd a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-07T02:00:00Z"^^xsd:dateTimeStamp .
+ex:containsOuterEnd a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-07T04:00:00Z"^^xsd:dateTimeStamp .
+
+# Example 8: instant before with xsd:dateTime values
+ex:dtInstantEarly a time:Instant ;
+  time:inXSDDateTime "2023-01-08T00:00:00Z"^^xsd:dateTime .
+ex:dtInstantLate a time:Instant ;
+  time:inXSDDateTime "2023-01-08T06:00:00Z"^^xsd:dateTime .
+
+# Example 9: mixed datatype intervals (stamp before dateTime)
+ex:mixedIntervalStamp a time:ProperInterval ;
+  time:hasBeginning ex:mixedStartStamp ;
+  time:hasEnd ex:mixedEndStamp .
+ex:mixedStartStamp a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-09T00:00:00Z"^^xsd:dateTimeStamp .
+ex:mixedEndStamp a time:Instant ;
+  time:inXSDDateTimeStamp "2023-01-09T01:00:00Z"^^xsd:dateTimeStamp .
+ex:mixedIntervalDateTime a time:ProperInterval ;
+  time:hasBeginning ex:mixedStartDateTime ;
+  time:hasEnd ex:mixedEndDateTime .
+ex:mixedStartDateTime a time:Instant ;
+  time:inXSDDateTime "2023-01-09T02:00:00Z"^^xsd:dateTime .
+ex:mixedEndDateTime a time:Instant ;
+  time:inXSDDateTime "2023-01-09T05:00:00Z"^^xsd:dateTime .
